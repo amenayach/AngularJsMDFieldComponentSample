@@ -1,0 +1,18 @@
+<div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+
+        <label for="$ctrl.ngModel.name">
+            {{ $ctrl.ngModel.name }}
+        </label>
+        <input id="{{$ctrl.ngModel.name}}" type="text" ng-model="$ctrl.ngModel.value" ng-if="$ctrl.ngModel.type !== 'select'">
+
+        <md-select ng-model="$ctrl.ngModel.value" ng-if="$ctrl.ngModel.type === 'select'">
+            <md-option value=""></md-option>
+            <md-option ng-repeat="op in $ctrl.ngModel.data" value="{{op.key}}">
+                {{op.value}}
+            </md-option>
+        </md-select>
+
+    </md-input-container>
+
+</div>
