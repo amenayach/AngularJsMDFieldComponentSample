@@ -1,44 +1,34 @@
-var app = angular.module('myapp');
+(function (angular) {
+    'use strict';
 
-app.service("dataNormalizerService", function ($http) {
-    return {
-        get: function (url, successCallback, errorCallback) {
-            return $http({
-                method: 'GET',
-                url: url
-            }).then(function (response) {
-                if (successCallback) successCallback(response);
-            }, function (response) {
-                if (errorCallback) errorCallback(response);
-            });
-        }
+    var app = angular.module('myapp');
+
+    function nwFilterController(dataNormalizerService) {
+
+        var ctrl = this;
+
+        setTimeout(function () {
+
+            if (ctrl.ngModel && ctrl.ngModel.dataUrl) {
+                dataNormalizerService.get(ctrl.ngModel.dataUrl,
+                    function (response) {
+                        ctrl.ngModel.data = response.data;
+                    },
+                    function (response) {
+                        console.log(response);
+                    })
+            }
+
+        }, 0);
+
     }
-});
 
-function nwFilterController(dataNormalizerService) {
-
-    var ctrl = this;
-
-    setTimeout(function () {
-
-        if (ctrl.ngModel && ctrl.ngModel.dataUrl) {
-            dataNormalizerService.get(ctrl.ngModel.dataUrl,
-                function (response) {
-                    ctrl.ngModel.data = response.data;
-                },
-                function (response) {
-                    console.log(response);
-                })
+    app.component('nwFilter', {
+        templateUrl: 'js/filter.component/filter.component.html',
+        controller: nwFilterController,
+        bindings: {
+            ngModel: '='
         }
+    });
 
-    }, 0);
-
-}
-
-app.component('nwFilter', {
-    templateUrl: 'js/filter.component/filter.component.html',
-    controller: nwFilterController,
-    bindings: {
-        ngModel: '='
-    }
-});
+})(window.angular);

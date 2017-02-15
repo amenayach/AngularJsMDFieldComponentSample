@@ -1,3 +1,6 @@
+(function(angular) {
+  'use strict';
+
 var app = angular.module('myapp', ['ngMaterial']);//, 'ngMessages', 'material.svgAssetsCache']);
 
 app.controller('mainCtrl', function ($scope) {
@@ -34,3 +37,5 @@ app.controller('mainCtrl', function ($scope) {
 
 
 });
+
+})(window.angular);
